@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Well's Score Calculator</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+  }
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: white;
+  }
+  .calculator {
+    border: 2px solid blue;
+    padding: 20px;
+    text-align: center;
+    background-color: white;
+  }
+  #footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: white;
+    height: 100px;
+  }
+  #footer img {
+    max-height: 80px;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="calculator">
+    <h1>Well's Score Calculator</h1>
+    <form id="wellsForm">
+      <label for="clinicalSigns">Clinical Signs:</label>
+      <input type="number" id="clinicalSigns" name="clinicalSigns" required><br><br>
+      <label for="heartRate">Heart Rate:</label>
+      <input type="number" id="heartRate" name="heartRate" required><br><br>
+      <label for="recentSurgery">Recent Surgery:</label>
+      <input type="checkbox" id="recentSurgery" name="recentSurgery"><br><br>
+      <button type="button" onclick="calculateScore()">Calculate</button>
+    </form>
+    <h2>Well's Score: <span id="result">-</span></h2>
+    <p id="interpretation"></p>
+  </div>
+</div>
+<div id="footer">
+  <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgwjk71jeXbwVHX7seoWX4jl8tMCY3_Eo7m4P0dagubKkC_Pxv9x9LfKx0HM4dR5e4RCn2_DEGy5iWDIaSL87FnNW1uVEQ3eVpRzTHnaDQZGwwXH8OkadnTTsXAhz0uBsFo24wfdzXzkrLcAQh8LtlQQcZxf24dOl3fH3Thgm5c81f4LwHVqTSK-aLbyhg5=s698" alt="Footer Image">
+  <p>&nbsp;&nbsp;&nbsp;Copyright Protected Ⓒ 2023 FAWMED.COM</p>
+</div>
+
+<script>
+  function calculateScore() {
+    const clinicalSigns = parseFloat(document.getElementById('clinicalSigns').value);
+    const heartRate = parseFloat(document.getElementById('heartRate').value);
+    const recentSurgery = document.getElementById('recentSurgery').checked;
+
+    let score = clinicalSigns + heartRate;
+    if (recentSurgery) {
+      score += 1;
+    }
+
+    document.getElementById('result').textContent = score;
+
+    const interpretation = getInterpretation(score);
+    document.getElementById('interpretation').textContent = interpretation;
+  }
+
+  function getInterpretation(score) {
+    if (score >= 7) {
+      return "High probability of pulmonary embolism.";
+    } else if (score >= 3) {
+      return "Moderate probability of pulmonary embolism.";
+    } else {
+      return "Low probability of pulmonary embolism.";
+    }
+  }
+</script>
+</body>
+</html>
