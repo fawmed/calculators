@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10 Points Alvarado Score Calculator</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: black;
+    color: white;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+  #calculator {
+    background-color: rgb(24, 24, 76);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+  }
+  #footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    color: white;
+    height: 100px;
+  }
+  #footer img {
+    max-height: 60px;
+    margin: 0 10px;
+  }
+  h2 {
+    color: rgb(247, 255, 2);
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div id="calculator">
+    <h2>Alvarado Score Calculator</h2>
+    <label for="migratoryPain">Migratory Pain:</label>
+    <select id="migratoryPain">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </select><br>
+    <label for="anorexia">Anorexia:</label>
+    <select id="anorexia">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </select><br>
+    <label for="nausea">Nausea/Vomiting:</label>
+    <select id="nausea">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </select><br>
+    <label for="migrationToRLQ">Migration to Right Lower Quadrant:</label>
+    <select id="migrationToRLQ">
+      <option value="0">No</option>
+      <option value="2">Yes</option>
+    </select><br>
+    <label for="reboundTenderness">Rebound Tenderness:</label>
+    <select id="reboundTenderness">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </select><br>
+    <label for="fever">Fever:</label>
+    <select id="fever">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </select><br>
+    <label for="leukocytosis">Leukocytosis:</label>
+    <select id="leukocytosis">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </select><br>
+    <label for="leftShift">Left Shift:</label>
+    <select id="leftShift">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </select><br>
+    <label for="acuteRLQ">Pain in Right Lower Quadrant:</label>
+    <select id="acuteRLQ">
+      <option value="0">No</option>
+      <option value="2">Yes</option>
+    </select><br>
+    <label for="totalScore">Total Score:</label>
+    <span id="result">0</span><br>
+    <button id="calculate">Calculate</button>
+  </div>
+</div>
+<div id="footer">
+  <p>&copy; 2023 FAWMED.COM</p>
+  <a href="https://fawmed.com" target="_blank">
+  <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgwjk71jeXbwVHX7seoWX4jl8tMCY3_Eo7m4P0dagubKkC_Pxv9x9LfKx0HM4dR5e4RCn2_DEGy5iWDIaSL87FnNW1uVEQ3eVpRzTHnaDQZGwwXH8OkadnTTsXAhz0uBsFo24wfdzXzkrLcAQh8LtlQQcZxf24dOl3fH3Thgm5c81f4LwHVqTSK-aLbyhg5=s698" alt="Footer Image">
+</div>
+<script>
+  document.getElementById('calculate').addEventListener('click', function() {
+    const migratoryPain = parseInt(document.getElementById('migratoryPain').value);
+    const anorexia = parseInt(document.getElementById('anorexia').value);
+    const nausea = parseInt(document.getElementById('nausea').value);
+    const migrationToRLQ = parseInt(document.getElementById('migrationToRLQ').value);
+    const reboundTenderness = parseInt(document.getElementById('reboundTenderness').value);
+    const fever = parseInt(document.getElementById('fever').value);
+    const leukocytosis = parseInt(document.getElementById('leukocytosis').value);
+    const leftShift = parseInt(document.getElementById('leftShift').value);
+    const acuteRLQ = parseInt(document.getElementById('acuteRLQ').value);
+    
+    const score = migratoryPain + anorexia + nausea + migrationToRLQ + reboundTenderness + fever + leukocytosis + leftShift + acuteRLQ;
+    
+    document.getElementById('result').textContent = score;
+  });
+</script>
+</body>
+</html>
