@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      color: white;
+    }
+
+    header, footer {
+      text-align: center;
+      background-color: blue;
+      padding: 1rem;
+      color: white;
+    }
+
+    main {
+      padding: 2rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    label, input {
+      display: block;
+      color: white;
+    }
+
+    button {
+      background-color: blue;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: black;
+    }
+
+    #result {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    footer img {
+      display: block;
+      margin: 0 auto;
+      max-width: 100%;
+    }
+
+    footer p {
+      margin-top: 1rem;
+    }
+  </style>
+  <title>Drug Dosage Calculator</title>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('calculate-btn').addEventListener('click', function() {
+        const weight = parseFloat(document.getElementById('weight').value);
+        const dosage = parseFloat(document.getElementById('dosage').value);
+        
+        if (isNaN(weight) || isNaN(dosage)) {
+          document.getElementById('result').textContent = 'Please enter valid numbers.';
+          return;
+        }
+        
+        const calculatedDosage = weight * dosage;
+        document.getElementById('result').textContent = `Calculated Dosage: ${calculatedDosage.toFixed(2)} mg`;
+      });
+    });
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Drug Dosage Calculator</h1>
+  </header>
+  <main>
+    <form id="calculator-form">
+      <label for="weight">Patient Weight (kg):</label>
+      <input type="number" id="weight" step="0.01" required>
+      
+      <label for="dosage">Desired Dosage (mg/kg):</label>
+      <input type="number" id="dosage" step="1" required>
+      
+      <button type="button" id="calculate-btn">Calculate</button>
+    </form>
+    <div id="result"></div>
+  </main>
+  <footer>
+    <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgwjk71jeXbwVHX7seoWX4jl8tMCY3_Eo7m4P0dagubKkC_Pxv9x9LfKx0HM4dR5e4RCn2_DEGy5iWDIaSL87FnNW1uVEQ3eVpRzTHnaDQZGwwXH8OkadnTTsXAhz0uBsFo24wfdzXzkrLcAQh8LtlQQcZxf24dOl3fH3Thgm5c81f4LwHVqTSK-aLbyhg5=s698" alt="Footer Image">
+    <p>&copy; 2023 FAWMED.COM</p>
+  </footer>
+</body>
+</html>
