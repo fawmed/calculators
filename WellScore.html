@@ -45,11 +45,26 @@
     <h1>Well's Score Calculator</h1>
     <form id="wellsForm">
       <label for="clinicalSigns">Clinical Signs:</label>
-      <input type="number" id="clinicalSigns" name="clinicalSigns" required><br><br>
-      <label for="heartRate">Heart Rate:</label>
-      <input type="number" id="heartRate" name="heartRate" required><br><br>
-      <label for="recentSurgery">Recent Surgery:</label>
-      <input type="checkbox" id="recentSurgery" name="recentSurgery"><br><br>
+      <div>
+        <input type="checkbox" id="clinicalSigns1" name="clinicalSigns" value="3">
+        <label for="clinicalSigns1">Clinical signs of DVT</label>
+      </div>
+      <div>
+        <input type="checkbox" id="clinicalSigns2" name="clinicalSigns" value="3">
+        <label for="clinicalSigns2">Alternative diagnosis less likely than PE</label>
+      </div>
+      <div>
+        <input type="checkbox" id="clinicalSigns3" name="clinicalSigns" value="3">
+        <label for="clinicalSigns3">Heart rate > 100 bpm</label>
+      </div>
+      <div>
+        <input type="checkbox" id="clinicalSigns4" name="clinicalSigns" value="2">
+        <label for="clinicalSigns4">Immobilization or surgery within 4 weeks</label>
+      </div>
+      <div>
+        <input type="checkbox" id="clinicalSigns5" name="clinicalSigns" value="1">
+        <label for="clinicalSigns5">Previous PE or DVT</label>
+      </div>
       <button type="button" onclick="calculateScore()">Calculate</button>
     </form>
     <h2>Well's Score: <span id="result">-</span></h2>
@@ -63,14 +78,12 @@
 
 <script>
   function calculateScore() {
-    const clinicalSigns = parseFloat(document.getElementById('clinicalSigns').value);
-    const heartRate = parseFloat(document.getElementById('heartRate').value);
-    const recentSurgery = document.getElementById('recentSurgery').checked;
+    const clinicalSigns = document.querySelectorAll('input[name="clinicalSigns"]:checked');
+    let score = 0;
 
-    let score = clinicalSigns + heartRate;
-    if (recentSurgery) {
-      score += 1;
-    }
+    clinicalSigns.forEach(sign => {
+      score += parseInt(sign.value);
+    });
 
     document.getElementById('result').textContent = score;
 
