@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pediatric Age to Weight Percentile Calculator</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+  }
+  header {
+    background-color: black;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+  }
+  .container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 2px solid blue;
+    border-radius: 10px;
+  }
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid blue;
+    border-radius: 5px;
+  }
+  button {
+    background-color: blue;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: darkblue;
+  }
+  footer {
+    text-align: center;
+    background-color: black;
+    color: white;
+    padding: 10px 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+  footer img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Pediatric Age to Weight Percentile Calculator</h1>
+  </header>
+  <div class="container">
+    <label for="age">Age (months):</label>
+    <input type="number" id="age" min="0" step="1">
+    <label for="weight">Weight (kg):</label>
+    <input type="number" id="weight" min="0" step="0.1">
+    <button id="calculate">Calculate</button>
+    <p id="result"></p>
+  </div>
+  <footer>
+    <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgwjk71jeXbwVHX7seoWX4jl8tMCY3_Eo7m4P0dagubKkC_Pxv9x9LfKx0HM4dR5e4RCn2_DEGy5iWDIaSL87FnNW1uVEQ3eVpRzTHnaDQZGwwXH8OkadnTTsXAhz0uBsFo24wfdzXzkrLcAQh8LtlQQcZxf24dOl3fH3Thgm5c81f4LwHVqTSK-aLbyhg5=s698" alt="Footer Image">
+    <p>Copyright Protected Ⓒ 2023 FAWMED.COM</p>
+  </footer>
+  <script>
+    document.getElementById("calculate").addEventListener("click", function() {
+      var age = parseFloat(document.getElementById("age").value);
+      var weight = parseFloat(document.getElementById("weight").value);
+
+      // Calculate the percentile based on Weight-For-Age Percentile chart data for 6-month-old boys
+      var percentile = calculatePercentile(age, weight);
+
+      var resultElement = document.getElementById("result");
+      resultElement.textContent = "The " + age + "-month-old boy with a weight of " + weight + " kg is in the " + percentile + "th percentile.";
+    });
+
+    // Function to calculate percentile based on Weight-For-Age Percentile chart data
+    function calculatePercentile(age, weight) {
+      // Weight-For-Age Percentile chart data for 6-month-old boys (2021)
+      var data = [
+        { age: 6, p3: 5.2, p15: 5.6, p50: 6.2, p85: 6.8, p97: 7.2 },
+        // Add more data points for other ages as needed
+      ];
+
+      // Find the closest data point to the given age
+      var closestData = data.reduce(function(prev, curr) {
+        return Math.abs(curr.age - age) < Math.abs(prev.age - age) ? curr : prev;
+      });
+
+      // Calculate the percentile based on the closest data point
+      var percentile = "Unknown";
+      if (weight < closestData.p3) {
+        percentile = "3rd";
+      } else if (weight >= closestData.p3 && weight < closestData.p15) {
+        percentile = "15th";
+      } else if (weight >= closestData.p15 && weight < closestData.p50) {
+        percentile = "50th";
+      } else if (weight >= closestData.p50 && weight < closestData.p85) {
+        percentile = "85th";
+      } else if (weight >= closestData.p85) {
+        percentile = "97th";
+      }
+
+      return percentile;
+    }
+  </script>
+</body>
+</html>
