@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/png" href="/images/favicon.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: white;
+      color: black;
+    }
+
+    .calculator {
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      color: blue;
+    }
+
+    form {
+      margin-top: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input {
+      padding: 5px;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: blue;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: black;
+    }
+
+    #result {
+      margin-top: 20px;
+    }
+
+    footer {
+      text-align: center;
+      background-color: black;
+      color: white;
+      padding: 10px;
+    }
+
+    footer img {
+      display: block;
+      margin: 0 auto;
+      max-width: 100%;
+    }
+
+    footer p {
+      margin-top: 10px;
+    }
+  </style>
+  <title>IV Fluid Infusion Calculator</title>
+</head>
+<body>
+  <div class="calculator">
+    <h1>Adult Burns Weight-Based IV Fluid Infusion Calculator</h1>
+    <form id="calculator-form">
+      <label for="burnsWeight">Burns Weight (kg):</label>
+      <input type="number" id="burnsWeight" step="0.1" required>
+      
+      <button type="button" id="calculateButton">Calculate</button>
+    </form>
+    <div id="result"></div>
+     <h2> Developed By Dr. F. Shah </h2>
+  </div>
+  <footer>
+    <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgwjk71jeXbwVHX7seoWX4jl8tMCY3_Eo7m4P0dagubKkC_Pxv9x9LfKx0HM4dR5e4RCn2_DEGy5iWDIaSL87FnNW1uVEQ3eVpRzTHnaDQZGwwXH8OkadnTTsXAhz0uBsFo24wfdzXzkrLcAQh8LtlQQcZxf24dOl3fH3Thgm5c81f4LwHVqTSK-aLbyhg5=s698" alt="Footer Image">
+    <p>Copyright Protected Ⓒ 2023 | First-Aid-Workshop - FAWMED.COM</p>
+  </footer>
+  <script>
+    document.getElementById("calculateButton").addEventListener("click", function () {
+      const burnsWeight = parseFloat(document.getElementById("burnsWeight").value);
+      const infusionAmount = calculateInfusionAmount(burnsWeight);
+      document.getElementById("result").innerHTML = `IV Fluid Infusion Amount: ${infusionAmount.toFixed(2)} mL/hour`;
+    });
+
+    function calculateInfusionAmount(weight) {
+      // Implement Parkland's formula calculation here
+      // Formula: mL/hour = 4 mL * weight in kg * %TBSA burned
+      // In this example, let's assume a constant %TBSA burned of 0.5 for demonstration
+      const tbsa = 0.5;
+      const infusionAmount = 4 * weight * tbsa;
+      return infusionAmount;
+    }
+  </script>
+</body>
+</html>
