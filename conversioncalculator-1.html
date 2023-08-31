@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="icon" type="image/png" href="/images/favicon.png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Conversion Calculator</title>
+<title>Conversion Calculator- (mg/dl to mmol/l & mmol/l to mg/dl) </title>
 <style>
   body {
     margin: 0;
@@ -43,8 +44,15 @@
     border-radius: 5px;
     cursor: pointer;
   }
+  .calculator select {
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+    padding: 5px;
+    border-radius: 5px;
+  }
   #footer {
-    background-color: blue;
+    background-color: black;
     text-align: center;
     padding: 10px;
     position: absolute;
@@ -65,8 +73,13 @@
 <div class="container">
   <div class="calculator">
     <h2>Conversion Calculator</h2>
-    <label for="mgdlInput">mg/dL:</label>
-    <input type="number" id="mgdlInput">
+    <label for="valueInput">Value:</label>
+    <input type="number" id="valueInput">
+    <label for="unitSelect">Unit:</label>
+    <select id="unitSelect">
+      <option value="mgdl">mg/dL</option>
+      <option value="mmoll">mmol/L</option>
+    </select>
     <button onclick="convert()">Convert</button>
     <p id="result"></p>
   </div>
@@ -77,17 +90,25 @@
 </div>
 <script>
   function convert() {
-    const mgdlInput = document.getElementById("mgdlInput");
+    const valueInput = document.getElementById("valueInput");
+    const unitSelect = document.getElementById("unitSelect");
     const result = document.getElementById("result");
-    
-    const mgdlValue = parseFloat(mgdlInput.value);
-    if (isNaN(mgdlValue)) {
+
+    const value = parseFloat(valueInput.value);
+    if (isNaN(value)) {
       result.innerText = "Please enter a valid number";
       return;
     }
-    
-    const mmollValue = mgdlValue / 18.018;
-    result.innerText = `${mgdlValue} mg/dL = ${mmollValue.toFixed(2)} mmol/L`;
+
+    const selectedUnit = unitSelect.value;
+
+    if (selectedUnit === "mgdl") {
+      const mmollValue = value / 18.018;
+      result.innerText = `${value} mg/dL = ${mmollValue.toFixed(2)} mmol/L`;
+    } else if (selectedUnit === "mmoll") {
+      const mgdlValue = value * 18.018;
+      result.innerText = `${value} mmol/L = ${mgdlValue.toFixed(2)} mg/dL`;
+    }
   }
 </script>
 </body>
