@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            color: black;
+        }
+
+        header, footer {
+            text-align: center;
+            padding: 20px;
+            background-color: blue;
+            color: white;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        form {
+            border: 1px solid black;
+            padding: 20px;
+            background-color: white;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: black;
+        }
+
+        select, input[type="number"], button {
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        #result {
+            margin-top: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        footer img {
+            display: block;
+            margin: 0 auto;
+        }
+
+        footer p {
+            margin-top: 10px;
+        }
+    </style>
+    <title>Diabetes Risk Calculator</title>
+</head>
+<body>
+    <header>
+        <h1>Diabetes Risk Score (Type 2)</h1>
+        <p>Calculate risk of developing T2DM</p>
+    </header>
+    
+    <main>
+        <form id="calculator-form">
+            <label for="gender">1. Gender?</label>
+            <select id="gender" name="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+            
+            <label for="hypertension">2. On Medication for Hypertension?</label>
+            <select id="hypertension" name="hypertension">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+            
+            <label for="steroids">3. On Steroids?</label>
+            <select id="steroids" name="steroids">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+            
+            <label for="age">4. Age?</label>
+            <input type="number" id="age" name="age">
+            
+            <label for="bmi">5. BMI?</label>
+            <input type="number" id="bmi" name="bmi">
+            
+            <label for="family-history">6. Family History of Diabetes?</label>
+            <select id="family-history" name="family-history">
+                <option value="none">No 1st degree family members with diabetes</option>
+                <option value="parent-sib">Parent OR sib with DM</option>
+                <option value="parent-sib-both">Parent AND sib with DM</option>
+            </select>
+            
+            <label for="smoker">7. Smoker?</label>
+            <select id="smoker" name="smoker">
+                <option value="non-smoker">Non-smoker</option>
+                <option value="used-to-smoke">Used to smoke</option>
+                <option value="smoker">Smoker</option>
+            </select>
+            
+            <button type="button" id="calculate-btn">Calculate Risk</button>
+        </form>
+        
+        <div id="result" class="hidden">
+            <p>Your calculated risk is: <span id="risk-value"></span>%</p>
+        </div>
+    </main>
+    
+    <footer>
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgTmDa1oRrym1nyzTfhLocqLlBVzVXuUtI2K-TGn5iG5N1XF680nY7bbeetQFAUtWO1V4UzBMr_WQjSchzttTV9VoEMyFHbd_LbSpx2bc13nGn1zXLThveRNbD1r7UKp0OwmLQDzepdYdMkgUeAnYkD-c3vscQFrzMY-W27_LCC9AYPAsHc3KLlcVTbps9F/s223/logo.png">
+        <p>Copyright Protected Ⓒ 2023 FAWMED.COM</p>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const calculateBtn = document.getElementById('calculate-btn');
+            const resultDiv = document.getElementById('result');
+            const riskValue = document.getElementById('risk-value');
+            
+            calculateBtn.addEventListener('click', function () {
+                const gender = document.getElementById('gender').value;
+                const hypertension = document.getElementById('hypertension').value;
+                const steroids = document.getElementById('steroids').value;
+                const age = parseFloat(document.getElementById('age').value);
+                const bmi = parseFloat(document.getElementById('bmi').value);
+                const familyHistory = document.getElementById('family-history').value;
+                const smoker = document.getElementById('smoker').value;
+
+                // Calculate risk using the provided formula and individual scores
+                const sexScore = (gender === 'male') ? 0 : -0.879;
+                const hypertensionScore = (hypertension === 'yes') ? 1.222 : 0;
+                const steroidsScore = (steroids === 'yes') ? 2.191 : 0;
+                const bmiScore = (bmi < 25) ? 0 : (bmi >= 25 && bmi < 27.5) ? 0.699 : (bmi >= 27.5 && bmi < 30) ? 1.97 : 2.518;
+                const familyHistoryScore = (familyHistory === 'parent-sib') ? 0.728 : (familyHistory === 'parent-sib-both') ? 0.753 : 0;
+                const smokerScore = (smoker === 'non-smoker') ? 0 : (smoker === 'used-to-smoke') ? -0.218 : 0.855;
+                
+                const terms = 6.322 - sexScore - hypertensionScore - steroidsScore - (0.063 * age) - bmiScore - familyHistoryScore - smokerScore;
+                const calculatedRisk = 100 / (1 + Math.exp(terms));
+
+                resultDiv.classList.remove('hidden');
+                riskValue.textContent = calculatedRisk.toFixed(2);
+            });
+        });
+    </script>
+</body>
+</html>
