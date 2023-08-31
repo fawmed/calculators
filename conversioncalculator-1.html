@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit Conversion Calculator</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
+  }
+
+  #calculator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+
+  #calculator h1 {
+    margin-bottom: 20px;
+    color: #00f;
+  }
+
+  .input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .input-group label {
+    width: 150px;
+  }
+
+  .input-group input {
+    width: 100px;
+    padding: 5px;
+  }
+
+  #result {
+    font-weight: bold;
+    color: #00f;
+  }
+
+  #footer {
+    text-align: center;
+    background-color: #000;
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+
+  #footer img {
+    display: block;
+    margin: 0 auto;
+    width: 100px;
+  }
+</style>
+</head>
+<body>
+<div id="calculator">
+  <h1>Unit Conversion Calculator</h1>
+  <div class="input-group">
+    <label for="gdl">g/dl:</label>
+    <input type="number" id="gdl" step="0.01">
+  </div>
+  <div class="input-group">
+    <label for="mmoll">mmol/l:</label>
+    <input type="number" id="mmoll" step="0.01">
+  </div>
+  <button onclick="convert()">Convert</button>
+  <p id="result"></p>
+</div>
+<div id="footer">
+  <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgwjk71jeXbwVHX7seoWX4jl8tMCY3_Eo7m4P0dagubKkC_Pxv9x9LfKx0HM4dR5e4RCn2_DEGy5iWDIaSL87FnNW1uVEQ3eVpRzTHnaDQZGwwXH8OkadnTTsXAhz0uBsFo24wfdzXzkrLcAQh8LtlQQcZxf24dOl3fH3Thgm5c81f4LwHVqTSK-aLbyhg5=s698" alt="Footer Image">
+  <p>Copyright Protected Ⓒ 2023 FAWMED.COM</p>
+</div>
+<script>
+  function convert() {
+    const gdlValue = parseFloat(document.getElementById('gdl').value);
+    const mmollValue = parseFloat(document.getElementById('mmoll').value);
+
+    if (!isNaN(gdlValue)) {
+      const convertedMmoll = gdlValue * 10;
+      document.getElementById('mmoll').value = convertedMmoll.toFixed(2);
+    } else if (!isNaN(mmollValue)) {
+      const convertedGdl = mmollValue / 10;
+      document.getElementById('gdl').value = convertedGdl.toFixed(2);
+    } else {
+      alert('Please enter a valid value.');
+    }
+  }
+</script>
+</body>
+</html>
